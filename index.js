@@ -1,31 +1,36 @@
-const express = require('express');
-const morgan = require('morgan');
+const express = require('express'),
+  bodyParser = require('body-parser'),
+  uuid = require('uuid'),
+  morgan = require('morgan');
+
 const app = express();
+
+app.use(bodyParser.json());
 
 //Create JSON object
 let myMovies = [
   {
     title: 'Lupin',
-    director: ['Louis Leterrier',  'Marcela Said'],
-    genre: ['Crime', 'Thriller', 'Mystery', 'Drama'],
-    releaseYear: 2021
+    director: 'Louis Leterrier',
+    genre: 'Crime',
+    releasedYear: 2021
   },
   {
     title: 'How To Get Away With Murder',
-    director: ['Bill D\'Elia', 'Shonda Rhimes'],
-    genre:['Thriller', 'Mystery', 'Drama', 'Legal'],
+    director: 'Bill D\'Elia',
+    genre:'Thriller',
     releasedYear: 2014
   },
   {
     title: 'Squid Game',
     director: 'Hwang Dong-hyuk',
-    genre: ['Survival', 'Thriller', 'Horror','Drama'],
+    genre: 'Survival',
     releasedYear: 2021
   },
   {
     title: 'Orphan',
     director: 'Jaume Collet-Serra',
-    genre: ['Psychological', 'Drama', 'Crime', 'Horror'],
+    genre: 'Psychological',
     releasedYear: 2009
   },
   {
@@ -37,31 +42,31 @@ let myMovies = [
   {
     title: 'Acrimony',
     director: 'Tyler Perry',
-    genre: ['Thriller', 'Psychological Thriller'],
+    genre: 'Thriller',
     releasedYear: 2018
   },
   {
     title: 'Shutter Island',
     director: 'Martin Scorsese',
-    genre:['neo-noir', 'psychological thriller','Medical fiction'],
+    genre:'neo-noir',
     releasedYear: 2010
   },
   {
     title: 'Iron Man',
     director: 'Jon Favreau',
-    genre: ['Sci-Fi', 'Action', 'Superhero Film',  'Mystery', 'Drama'],
+    genre: 'Sci-Fi',
     releasedYear: 2008
   },
   {
     title: 'Maleficent',
     director: 'Robert Stromberg',
-    genre: ['Action', 'Dark Fantasy Adventure', 'Thriller', 'Fairytale'],
+    genre: 'Dark Fantasy Adventure',
     releasedYear: 2014
   },
   {
     title: 'Free Guy',
     director: 'Shawn Levy',
-    genre: ['Sci-fi', 'Action', 'Comedy'],
+    genre: 'Action',
     releasedYear: 2021
   }
 ];
@@ -81,9 +86,88 @@ app.get('/documentation', (req, res) => {
 
 //Get movies request/route
 app.get('/movies', (req, res) =>{
-res.json(myMovies); //return json object containing movies
+  res.json(myMovies); //return json object containing movies
 });
 
+app.use(express.static("public"));
+
+//Get a list of all movies
+app.get('/movies', (req, res) => {
+  res.status(200).json(myMovies);
+});
+
+//Get data about a movie by title
+app.get('/movies/:title', (req, res) => {
+  res.status(200).json(
+    myMovies.find(movie => {
+      return movie.title === req.params.title;
+    })
+  );
+});
+
+//Get genre details about a movie by title
+app.get('/genres/:genre', (req, res) => {
+  res.status(200).json(
+    myMovies.find(genre => {
+      return genre.genre === req.params.genre;
+    })
+  );
+});
+
+//Get data about a director by name
+app.get('/directors/:directorName', (req, res) => {
+  res.status(200).json(
+    myMovies.find(director => {
+      return director.director === req.params.directorName;
+    })
+  );
+});
+
+//Get data about all movies under the given releasd year
+app.get('/movies/:releasedYear', (req, res) => {
+    res.status(200).json(
+      myMovies.find(releasedYear => {
+        return movie.releasedYear === req.params.releasedYear;
+      })
+    );
+});
+
+//Add a new user
+app.post('/users/:newUser', (req, res) => {
+  res.send("Registration complete.");
+});
+/*app.post('/users/:newUser', (req, res) => {
+  let newUser = req.body;
+
+  if (!newUser.name) {
+    const message = 'Missing user name in request body';
+    res.status(400).send(message);
+  } else {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).send(newUser);
+  }
+});*/
+
+//Update user information
+app.put("/users/:username", (req, res) => {
+  res.send("User Profile Updated");
+});
+//Delete the user profile
+app.delete("/users/:deleteUser", (req, res) => {
+  res.send("Profile Deleted!");
+});
+
+app.post('/favorite/:movieName', (req, res) => {
+    res.send('Movie was added to favorites');
+});
+app.delete('/favorite/:movieName', (req, res) => {
+    res.send('Movie was deleted');
+});
+
+/*app.use(express.static('public', {
+    extensions: ['html'],
+}));*/
 //Create error handler
 app.use((err, req, res, next) => {
   console.error(err.stack); //log all caught error to terminal
