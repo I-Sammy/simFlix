@@ -19,48 +19,85 @@
       <th>URL</th>
       <th>HTTP Method</th>
       <th>Response</th>
+      <th>Example</th>
     </tr>
     <tr>
-      <td>Get a list of movies</td>
+      <td>Get a list of movies: </td>
       <td>/Movies</td>
       <td>GET</td>
       <td>Returns a JSON list of movies.</td>
+      <td></td>
     </tr>
     <tr>
       <td>Get data about the movie by title</td>
       <td>/movies/:title</td>
       <td>GET</td>
       <td>Returns a JSON data about a specific movie by title from parameter.</td>
+      <td> "_id" : ObjectId("61e581fa89d649d428b9b92a"),
+        "Title" : "Iron Man",
+        "Description" : "Iron Man is a superhero appearing in American comic books published by Marvel Comics.",
+        "Genre" : {
+                "Name" : "Action",
+                "Desription" : "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases."
+        },
+        "Director" : {
+                "Name" : "Jon Favreau",
+                "Bio" : "Jonathan Kolia Favreau is an American actor, comedian and filmmaker. As an actor, Favreau has appeared in the films Rudy (1993), Swingers (1996), Very Bad Things (1998), Deep Impact (1998), The Replacements (2000), Daredevil (2003), The Break-Up (2006), Four Christmases (2008), Couples Retreat (2009), I Love You, Man (2009), The Wolf of Wall Street (2013), Chef (2014), and films created by Marvel Studios.",
+                "Birth" : "1966",
+                "Death" : null
+        },
+        "Actors" : "Robert Downey Jr., Terrence Howard, Jeff Bridges, Shaun Toub, Gwyneth Paltrow",
+        "Imagepath" : "ironman.png",
+        "Featured" : true</td>
     </tr>
     <tr>
       <td>Get data about the director by director name from parameter</td>
       <td>/directors/:directorName</td>
       <td>GET</td>
       <td>Returns a JSON data about director.</td>
+      <td>"Name": "Jon Favreau",
+          "Bio": "Jon Kolia Favreau is...",
+          "Birth": "1966",
+          "Death":  null</td>
     </tr>
+    <tr>
+          <td>Return data about a genre by name/title.</td>
+          <td>/genres/:genre</td>
+          <td>GET</td>
+          <td>Returns a JSON data with movies of that ganre.</td>
+          <td>"Name": "Action", <br>
+          "Description": "Action film is...."</td>
+      </tr>
     <tr>
       <td>Add new user</td>
       <td>/users/:newUser</td>
       <td>POST</td>
       <td>Add new user to JSON object.</td>
+      <td>Username: xxxxx,
+          Password: xxxxxx,
+          Email: xxxx@xxxx.xxx,
+          Birthdate: xx.xx.xxxx</td>
     </tr>
     <tr>
       <td>Allow users to update their user information</td>
       <td>/users/:Username</td>
       <td>PUT</td>
       <td>Return the data fields updated by the user.</td>
+      <td></td>
     </tr>
     <tr>
       <td>Delete the user</td>
       <td>/users/:deleteUser</td>
       <td>DELETE</td>
       <td>Return a text confirming that the user was deleted.</td>
+      <td></td>
     </tr>
     <tr>
       <td>Add new movie to list of favorite</td>
       <td>/favorite/:movieName</td>
       <td>POST</td>
       <td>Return a text confirming taht the given movie was added successfully.</td>
+      <td></td>
     </tr>
   </table>
 </body>
