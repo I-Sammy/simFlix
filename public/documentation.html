@@ -62,7 +62,7 @@
     </tr>
     <tr>
           <td>Return data about a genre by name/title.</td>
-          <td>/genres/:genre</td>
+          <td>/genres/:genrename</td>
           <td>GET</td>
           <td>Returns a JSON data with movies of that ganre.</td>
           <td>"Name": "Action", <br>
@@ -70,7 +70,7 @@
       </tr>
     <tr>
       <td>Add new user</td>
-      <td>/users/:newUser</td>
+      <td>/users/:Username</td>
       <td>POST</td>
       <td>Add new user to JSON object.</td>
       <td>Username: xxxxx,
@@ -94,9 +94,16 @@
     </tr>
     <tr>
       <td>Add new movie to list of favorite</td>
-      <td>/favorite/:movieName</td>
+      <td>/users/:userName/movies/:title</td>
       <td>POST</td>
       <td>Return a text confirming taht the given movie was added successfully.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Remove a movie from an user's favourite movies list</td>
+      <td>/users/:userName/movies/:title</td>
+      <td>POST</td>
+      <td>Return a text confirming taht the given movie was removed successfully.</td>
       <td></td>
     </tr>
   </table>
