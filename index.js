@@ -32,8 +32,10 @@ const Models = require('./models.js');
 const Movies =  Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/simFlixDB',
-  { useNewUrlParser: true, useUnifiedTopology: true });
+/*mongoose.connect('mongodb://localhost:27017/simFlixDB',
+  { useNewUrlParser: true, useUnifiedTopology: true });*/
+  monoose.connect(process.env.CONNECTION_URI
+  ,{ useNewUrlParser: true, useUnifiedTopology: true });
 
 
 app.use (morgan('common')); //log all request on terminal
