@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
 //app.use(cors()); //allows all origins
 //to allow only selected origins
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
@@ -139,7 +139,9 @@ app.put("/users/:Username", passport.authenticate('jwt', { session: false }),(re
 
 
 //Get a detailed list of all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }),(req, res) =>{
+//temporarily deactivated token
+//app.get('/movies', passport.authenticate('jwt', { session: false }),(req, res) =>{
+app.get("/movies", function (req, res) {
   Movies.find()
   .then((movies)=>{
     res.status(201).json(movies);
