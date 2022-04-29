@@ -113,13 +113,29 @@ app.get('/users/:Username',passport.authenticate('jwt', { session: false }),(req
 });
 
 //Update user info by Username
-app.put("/users/:Username", passport.authenticate('jwt', { session: false }),(req, res) => {
+app.put("/users/:Username", passport.authenticate('jwt', { session: false }),// Validation logic
+  [
+    check('Username', 'Username is required (min 3 characters).').isLength({ min: 3 }),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric()
+  ], (req, res) => {
+    // Check validation object for errors
+    let errors = validationResult(req);
+    let hashedPassword = undefined;
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    // If Password is given in request body, create hashedPassword from given Password
+    if(req.body.hasOwnProperty('Password')){
+      hashedPassword = Users.hashPassword(req.body.Password);
+    }
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
       $set: {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         BirthDate: req.body.BirthDate
       }
