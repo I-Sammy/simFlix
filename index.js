@@ -223,13 +223,15 @@ app.post("/users/:Username/:movieid", passport.authenticate('jwt', { session: fa
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $push: {Email: 'zayn1@gmail.com'}//{ FavoriteMovies: req.params.movieid }
+      $push: { FavoriteMovies: req.params.movieid }
     },
     { new: true },
     (err, updatedUser) => {
       if (err) {
+        console.error(error.response.data);
         console.error(err);
         res.status(500).send("Error" + err);
+
       } else {
         console.log("sending array info");
         res.json(updatedUser);
