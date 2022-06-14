@@ -11,7 +11,7 @@ const cors = require('cors');
 //app.use(cors()); //allows all origins
 //to allow only selected origins
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234',
-'https://simflix1.netlify.app'];
+'https://simflix1.netlify.app', 'https://zoehime.herokuapp.com'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
